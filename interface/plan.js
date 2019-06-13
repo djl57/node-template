@@ -3,6 +3,11 @@ const DB = require('../dbs/db')
 const collectionName = 'cover'
 const collectionName2 = 'plan'
 
+router.get('/test', async ctx => {
+  // console.log(result)
+  console.log(ctx.url)
+  ctx.body = { code: 0, msg: '行程添加成功' }
+})
 /**
  * destination:"北京"
  * endDate:"2019年05月10日"
@@ -13,6 +18,7 @@ const collectionName2 = 'plan'
  * 返回一个旅程id
  */
 router.post('/cover', async ctx => {
+  console.log(ctx.url)
   const result = ctx.request.body
   /**
    * 0：进行中旅程
@@ -21,7 +27,7 @@ router.post('/cover', async ctx => {
   result.status = 0
   const insert = await DB.insert(collectionName, result)
   if (insert.result.ok === 1) {
-    ctx.body = { code: 0, msg: '封面插入成功',  }
+    ctx.body = { code: 0, msg: '封面插入成功', }
   } else {
     ctx.body = { code: 1, msg: '封面插入失败' }
   }
@@ -107,8 +113,8 @@ router.get('/getOnCovers', async ctx => {
   const res = await DB.find(collectionName, { "openId": openId })
   if (res.length > 0) {
     let data = []
-    for(let prop of res) {
-      if(prop.status === status) {
+    for (let prop of res) {
+      if (prop.status === status) {
         data.push(prop)
       }
     }
@@ -141,7 +147,7 @@ router.post('/editPlan', async ctx => {
     budget: result.budget,
     takeTime: result.takeTime
   }
-  const up = {_id: await DB.getObjectId(result._id)}
+  const up = { _id: await DB.getObjectId(result._id) }
   // console.log(up)
   const update = await DB.update(collectionName2, up, updateData)
   if (update.result.ok === 1) {
@@ -153,7 +159,7 @@ router.post('/editPlan', async ctx => {
 
 router.post('/delPlan', async ctx => {
   const result = ctx.request.body
-  const up = {_id: await DB.getObjectId(result.id)}
+  const up = { _id: await DB.getObjectId(result.id) }
   // console.log(up)
   const remove = await DB.remove(collectionName2, up)
   // console.log(remove)
@@ -167,8 +173,8 @@ router.post('/delPlan', async ctx => {
 router.post('/coverFinish', async ctx => {
   const result = ctx.request.body
   // console.log(result)
-  const up = {_id: await DB.getObjectId(result.id)}
-  const update = await DB.update(collectionName, up, {status: 1})
+  const up = { _id: await DB.getObjectId(result.id) }
+  const update = await DB.update(collectionName, up, { status: 1 })
   if (update.result.ok === 1) {
     ctx.body = { code: 0, msg: '旅程状态修改成功' }
   } else {
