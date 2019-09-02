@@ -1,11 +1,16 @@
 const router = require('koa-router')()
-const DB = require('../dbs/db')
+const DB = require('../../dbs/db')
 const collectionName = 'cover'
 const collectionName2 = 'plan'
 
 router.get('/test', async ctx => {
   // console.log(result)
   console.log(ctx.url)
+  ctx.body = { code: 0, msg: '行程添加成功' }
+})
+router.post('/post', async ctx => {
+  const result = ctx.request.body
+  console.log(result)
   ctx.body = { code: 0, msg: '行程添加成功' }
 })
 /**

@@ -1,5 +1,5 @@
 const router = require('koa-router')()
-const DB = require('../dbs/db')
+const DB = require('../../dbs/db')
 const collectionName = 'cover'
 const collectionName2 = 'plan'
 

@@ -1,5 +1,5 @@
 const router = require('koa-router')()
-const DB = require('../dbs/db')
+const DB = require('../../dbs/db')
 const collectionName = 'user'
 const https = require('https');
 
